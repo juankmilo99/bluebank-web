@@ -1,0 +1,24 @@
+<!-- consulta-saldo.component.html -->
+<div class="flex-grow max-w-md mx-auto bg-white p-8 rounded-md shadow-lg mt-4">
+  <h2 class="text-3xl font-semibold text-gray-800 mb-4">Consultar Saldo de la Cuenta</h2>
+  <form (ngSubmit)="consultarSaldo()" [formGroup]="saldoForm!">
+    <div class="mb-4">
+      <label for="numeroCuenta" class="block text-gray-700 text-sm font-bold mb-2">Número de Cuenta:</label>
+      <input type="text" id="numeroCuenta" formControlName="numeroCuenta" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline-blue" />
+      <div *ngIf="saldoForm!.get('numeroCuenta')!.hasError('required')" class="text-red-500 text-xs mt-1">El número de cuenta es requerido.</div>
+    </div>
+    <div class="mb-4">
+      <label for="numeroDocumento" class="block text-gray-700 text-sm font-bold mb-2">Número de Documento:</label>
+      <input type="text" id="numeroDocumento" formControlName="numeroDocumento" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline-blue" />
+      <div *ngIf="saldoForm!.get('numeroDocumento')!.hasError('required')" class="text-red-500 text-xs mt-1">El número de documento es requerido.</div>
+    </div>
+    <div class="flex items-center justify-center">
+      <button type="submit" [disabled]="saldoForm!.invalid || consultando" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+        {{consultando ? "Consultando": "Consultar Saldo"}}
+      </button>
+    </div>
+  </form>
+  <div *ngIf="saldoConsultado" class="mt-6">
+    <p class="text-gray-700">El saldo actual de la cuenta es: <span class="font-semibold">${{saldo}}</span></p>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<!-- consulta-movimientos.component.html -->
+<div class="flex-grow max-w-md mx-auto bg-white p-8 rounded-md shadow-lg mt-4">
+  <h2 class="text-3xl font-semibold text-gray-800 mb-4">Consultar Movimientos Recientes</h2>
+  <form [formGroup]="movimientosForm">
+    <div class="mb-4">
+      <label for="documentNumber" class="block text-gray-700 text-sm font-bold mb-2">Número de Documento:</label>
+      <input type="text" id="documentNumber" formControlName="documentNumber" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline-blue" />
+      <div *ngIf="movimientosForm.get('documentNumber')!.hasError('required')" class="text-red-500 text-xs mt-1">El número de documento es requerido.</div>
+    </div>
+    <div class="flex items-center justify-center">
+      <button type="button" (click)="consultarMovimientos()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+        Consultar Movimientos
+      </button>
+    </div>
+  </form>
+  <div *ngIf="movimientos.length > 0" class="table-container">
+    <table class="table-auto">
+      <thead>
+      <tr>
+        <th class="px-4 py-2">Fecha y Hora</th>
+        <th class="px-4 py-2">Número de Cuenta</th>
+        <th class="px-4 py-2">Monto</th>
+        <th class="px-4 py-2">Tipo</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let movimiento of movimientos">
+        <td class="border px-4 py-2">{{ movimiento.dateTime }}</td>
+        <td class="border px-4 py-2">{{ movimiento.accountNumber }}</td>
+        <td class="border px-4 py-2">${{ movimiento.amount }}</td>
+        <td class="border px-4 py-2">{{ movimiento.type }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
